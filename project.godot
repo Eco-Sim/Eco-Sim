@@ -18,6 +18,7 @@ boot_splash/image="res://icon.png"
 [autoload]
 
 SceneLoader="*res://scripts/scene_loader.gd"
+ClickSoundUtil="*res://scripts/click_sound_util.gd"
 
 [display]
 

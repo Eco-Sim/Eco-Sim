@@ -7,6 +7,8 @@ func _ready() -> void:
 	escape_menu.button1.text = 'Play'
 	escape_menu.button2.text = 'Credits'
 
+	escape_menu.can_toggle_via_keybind = false
+
 	escape_menu.button1_pressed.connect(_on_play_pressed)
 	escape_menu.button2_pressed.connect(_on_credits_pressed)
 
