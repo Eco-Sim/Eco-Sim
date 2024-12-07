@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://dx1qboantw5lt"]
+
+[ext_resource type="Script" path="res://scenes/startmenu/startmenu.gd" id="1_8i6bn"]
+[ext_resource type="Texture2D" uid="uid://b2mayvwih166k" path="res://assets/branding/menu_background.png" id="3_tcsel"]
+
+[node name="MenuScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_8i6bn")
+
+[node name="MenuBackground" type="Sprite2D" parent="."]
+modulate = Color(0.76067, 0.728429, 0.776231, 1)
+z_index = -1
+position = Vector2(640, 360)
+texture = ExtResource("3_tcsel")
