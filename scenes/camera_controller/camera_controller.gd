@@ -6,33 +6,38 @@ extends Camera2D
 @export var zoom_speed : float = 10.0;
 @export var pan_speed: float = 1.0;
 
-var zoomTarget :Vector2
+@export var max_zoom: float = 1
+@export var min_zoom: float = 0.5
 
-var dragStartMousePos = Vector2.ZERO
-var dragStartCameraPos = Vector2.ZERO
-var isDragging : bool = false
+var zoom_target :Vector2
+
+var drag_start_mouse_pos = Vector2.ZERO
+var drag_start_camera_pos = Vector2.ZERO
+var is_dragging : bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	zoomTarget = zoom
+	zoom_target = zoom
 	pass # Replace with function body.
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	SimplePan(delta)
-	ClickAndDrag()
-	Zoom(delta)
+	simple_pan(delta)
+	click_and_drag()
+	_zoom(delta)
 	
-func Zoom(delta):
+func _zoom(delta):
 	if Input.is_action_just_pressed("camera_zoom_in"):
-		zoomTarget *= 1.1
+		zoom_target *= 1.1
 		
 	if Input.is_action_just_pressed("camera_zoom_out"):
-		zoomTarget *= 0.9
-		
-	zoom = zoom.slerp(zoomTarget, zoom_speed * delta)
+		zoom_target *= 0.9
+
+	zoom_target = Vector2(min(max(zoom_target.x, min_zoom), max_zoom), min(max(zoom_target.y, min_zoom), max_zoom))
+
+	zoom = zoom.slerp(zoom_target, zoom_speed * delta)
 	
-func SimplePan(delta):
+func simple_pan(delta):
 	var moveAmount = Vector2.ZERO
 	if Input.is_action_pressed("camera_move_right"):
 		moveAmount.x += 1
@@ -49,15 +54,15 @@ func SimplePan(delta):
 	moveAmount = moveAmount.normalized()
 	position += moveAmount * delta * 1000 * (1/zoom.x) * pan_speed
 
-func ClickAndDrag():
-	if !isDragging and Input.is_action_just_pressed("camera_pan"):
-		dragStartMousePos = get_viewport().get_mouse_position()
-		dragStartCameraPos = position
-		isDragging = true
+func click_and_drag():
+	if !is_dragging and Input.is_action_just_pressed("camera_pan"):
+		drag_start_mouse_pos = get_viewport().get_mouse_position()
+		drag_start_camera_pos = position
+		is_dragging = true
 		
-	if isDragging and Input.is_action_just_released("camera_pan"):
-		isDragging = false
+	if is_dragging and Input.is_action_just_released("camera_pan"):
+		is_dragging = false
 		
-	if isDragging:
-		var moveVector = get_viewport().get_mouse_position() - dragStartMousePos
-		position = dragStartCameraPos - moveVector * 1/zoom.x
+	if is_dragging:
+		var moveVector = get_viewport().get_mouse_position() - drag_start_mouse_pos
+		position = drag_start_camera_pos - moveVector * 1/zoom.x

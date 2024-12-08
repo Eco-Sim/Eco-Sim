@@ -1,34 +1,27 @@
-[gd_scene load_steps=3 format=3 uid="uid://bhq3wqiw5ccme"]
+[gd_scene load_steps=4 format=3 uid="uid://bhq3wqiw5ccme"]
 
 [ext_resource type="Script" path="res://scenes/escapemenu/escapemenu.gd" id="1_6pxjd"]
+[ext_resource type="Material" uid="uid://bnx6x0rvqto3" path="res://shaders/vignette.tres" id="2_8ewf4"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ff233"]
 load_path = "res://.godot/imported/ecosim_logo.png-cfa8f0d3902929151fbc93c5e5603618.ctex"
 
-[node name="EscapeMenu" type="Control"]
-self_modulate = Color(1, 1, 1, 0)
-layout_mode = 3
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -1280.0
-offset_top = -720.0
-grow_horizontal = 0
-grow_vertical = 0
+[node name="EscapeMenu" type="CanvasLayer"]
 script = ExtResource("1_6pxjd")
 
 [node name="Blur" type="Panel" parent="."]
-layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="VignetteEffect" type="ColorRect" parent="."]
+material = ExtResource("2_8ewf4")
+offset_right = 1280.0
+offset_bottom = 720.0
+
 [node name="EcosimLogo" type="TextureRect" parent="."]
-layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.7
 anchor_right = 0.7
@@ -41,8 +34,7 @@ scale = Vector2(0.7, 0.7)
 texture = SubResource("CompressedTexture2D_ff233")
 
 [node name="Button1" type="Button" parent="."]
-layout_mode = 1
-anchors_preset = -1
+anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -57,8 +49,7 @@ text = "...
 "
 
 [node name="Button2" type="Button" parent="."]
-layout_mode = 1
-anchors_preset = -1
+anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -72,8 +63,7 @@ grow_vertical = 2
 text = "..."
 
 [node name="Quit" type="Button" parent="."]
-layout_mode = 1
-anchors_preset = -1
+anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5

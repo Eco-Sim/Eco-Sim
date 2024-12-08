@@ -1,35 +1,22 @@
-[gd_scene load_steps=10 format=3 uid="uid://bxcy3osxomn14"]
+[gd_scene load_steps=9 format=3 uid="uid://dnplvu7k5rq56"]
 
-[ext_resource type="Script" path="res://scenes/procedural_generation/procedural_generation.gd" id="1_ouxw4"]
-[ext_resource type="Texture2D" uid="uid://b04y7fc238mte" path="res://assets/tilesets/hextiles.png" id="2_vw1uo"]
-[ext_resource type="Texture2D" uid="uid://btw1ev6rdb7pq" path="res://assets/tilesets/scifi_tilesheet.png" id="3_xvkgg"]
+[ext_resource type="Script" path="res://scenes/placement/placement.gd" id="1_e67id"]
+[ext_resource type="Texture2D" uid="uid://dcv87y04fa5as" path="res://assets/tilesets/earth_eaters.png" id="2_qi64c"]
+[ext_resource type="Texture2D" uid="uid://btw1ev6rdb7pq" path="res://assets/tilesets/scifi_tilesheet.png" id="3_k45kd"]
+[ext_resource type="Texture2D" uid="uid://b04y7fc238mte" path="res://assets/tilesets/hextiles.png" id="4_suw83"]
 
-[sub_resource type="Gradient" id="Gradient_gl2u3"]
-interpolation_mode = 1
-offsets = PackedFloat32Array(0, 0.4375, 0.5, 0.767196, 0.931217)
-colors = PackedColorArray(0, 1, 0.916667, 1, 1, 0.95, 0, 1, 0, 1, 0, 1, 0, 0.24, 0, 1, 0.4, 0.4, 0.4, 1)
-metadata/_snap_enabled = true
-metadata/_snap_count = 16
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4qlgf"]
+texture = ExtResource("2_qi64c")
+margins = Vector2i(28, 28)
+separation = Vector2i(56, 0)
+texture_region_size = Vector2i(241, 225)
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_gih8y"]
-noise_type = 3
-seed = 562
-frequency = 0.0081
-fractal_type = 2
-fractal_octaves = 4
-fractal_gain = 0.8
-domain_warp_type = 2
-metadata/_preview_in_3d_space_ = true
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_s3n1u"]
-width = 20
-height = 140
-generate_mipmaps = false
-color_ramp = SubResource("Gradient_gl2u3")
-noise = SubResource("FastNoiseLite_gih8y")
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_p5kxu"]
-texture = ExtResource("3_xvkgg")
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bl5ug"]
+texture = ExtResource("3_k45kd")
 margins = Vector2i(0, 2)
 separation = Vector2i(0, 4)
 texture_region_size = Vector2i(32, 28)
@@ -160,8 +147,8 @@ texture_region_size = Vector2i(32, 28)
 16:6/0 = 0
 17:6/0 = 0
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8hfiu"]
-texture = ExtResource("2_vw1uo")
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_palv8"]
+texture = ExtResource("4_suw83")
 texture_region_size = Vector2i(32, 48)
 use_texture_padding = false
 0:0/next_alternative_id = 3
@@ -247,17 +234,18 @@ use_texture_padding = false
 7:4/0/texture_origin = Vector2i(0, 9)
 0:5/0 = 0
 
-[sub_resource type="TileSet" id="TileSet_d0kq6"]
+[sub_resource type="TileSet" id="TileSet_l8oad"]
+tile_shape = 3
 tile_layout = 5
+tile_offset_axis = 1
 tile_size = Vector2i(32, 28)
-uv_clipping = true
-sources/3 = SubResource("TileSetAtlasSource_8hfiu")
-sources/1 = SubResource("TileSetAtlasSource_p5kxu")
+sources/3 = SubResource("TileSetAtlasSource_palv8")
+sources/0 = SubResource("TileSetAtlasSource_4qlgf")
+sources/1 = SubResource("TileSetAtlasSource_bl5ug")
 
-[node name="ProceduralGeneration" type="Node2D"]
-script = ExtResource("1_ouxw4")
-noise_heightmap = SubResource("NoiseTexture2D_s3n1u")
+[node name="Placement" type="Node2D"]
+script = ExtResource("1_e67id")
 
 [node name="TileMap" type="TileMapLayer" parent="."]
 clip_children = 2
-tile_set = SubResource("TileSet_d0kq6")
+tile_set = SubResource("TileSet_l8oad")

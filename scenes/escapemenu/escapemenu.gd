@@ -1,4 +1,4 @@
-class_name EscapeMenu extends Control
+class_name EscapeMenu extends CanvasLayer
 
 @onready var quit := $Quit as Button
 @onready var button1 := $Button1 as Button
