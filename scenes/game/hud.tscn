@@ -1,0 +1,122 @@
+[gd_scene load_steps=5 format=3 uid="uid://boh5flscyvjew"]
+
+[ext_resource type="Script" path="res://scenes/game/hud.gd" id="1_anmba"]
+[ext_resource type="Texture2D" uid="uid://b127a8vxw4qrt" path="res://assets/ui/white_circle.png" id="1_cleew"]
+[ext_resource type="Texture2D" uid="uid://bfgdinigqbvgp" path="res://assets/ui/hammer.png" id="2_2so2n"]
+[ext_resource type="Texture2D" uid="uid://dbop6iala2c51" path="res://assets/ui/microscope.png" id="3_ssdb6"]
+
+[node name="Hud" type="CanvasLayer"]
+script = ExtResource("1_anmba")
+
+[node name="Inner" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -590.0
+offset_top = -325.0
+offset_right = 590.0
+offset_bottom = 325.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Energy" type="Panel" parent="Inner"]
+layout_mode = 0
+offset_top = 252.0
+offset_right = 136.0
+offset_bottom = 282.0
+
+[node name="Value" type="Label" parent="Inner/Energy"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "5,000
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Name" type="Label" parent="Inner/Energy"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -29.0
+offset_bottom = -30.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Energy"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BuildMenu" type="TextureButton" parent="Inner"]
+self_modulate = Color(0.0911214, 0.0911215, 0.0911214, 0.588235)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -120.0
+offset_top = -120.0
+grow_horizontal = 0
+grow_vertical = 0
+texture_normal = ExtResource("1_cleew")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Icon" type="TextureRect" parent="Inner/BuildMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -35.0
+offset_top = -35.0
+offset_right = 35.0
+offset_bottom = 35.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_2so2n")
+expand_mode = 3
+flip_h = true
+
+[node name="Research" type="TextureButton" parent="Inner"]
+self_modulate = Color(0.0911214, 0.0911215, 0.0911214, 0.588235)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_top = 0.798
+anchor_right = 1.0
+anchor_bottom = 0.798
+offset_left = -50.0
+offset_top = -50.0
+grow_horizontal = 0
+grow_vertical = 0
+texture_normal = ExtResource("1_cleew")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Icon" type="TextureRect" parent="Inner/Research"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -10.0
+offset_top = -16.443
+offset_right = 10.0
+offset_bottom = 16.443
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_ssdb6")
+expand_mode = 5
+
+[connection signal="pressed" from="Inner/BuildMenu" to="." method="_on_build_menu_pressed"]
+[connection signal="pressed" from="Inner/Research" to="." method="_on_research_pressed"]

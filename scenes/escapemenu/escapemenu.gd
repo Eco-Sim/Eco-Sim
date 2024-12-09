@@ -62,6 +62,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		return
 	
 	self.visible = !self.visible
+	get_tree().paused = self.visible
 
 	ClickSoundUtil.play(self)
 	

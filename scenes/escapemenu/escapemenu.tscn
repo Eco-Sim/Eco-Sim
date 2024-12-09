@@ -7,6 +7,7 @@
 load_path = "res://.godot/imported/ecosim_logo.png-cfa8f0d3902929151fbc93c5e5603618.ctex"
 
 [node name="EscapeMenu" type="CanvasLayer"]
+layer = 128
 script = ExtResource("1_6pxjd")
 
 [node name="Blur" type="Panel" parent="."]

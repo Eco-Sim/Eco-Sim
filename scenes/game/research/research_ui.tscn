@@ -1,0 +1,243 @@
+[gd_scene load_steps=13 format=3 uid="uid://cmjc0fpxbut8c"]
+
+[ext_resource type="Script" path="res://scenes/game/research/research_ui.gd" id="1_2til6"]
+[ext_resource type="Texture2D" uid="uid://dxdytdgndfc4q" path="res://assets/ui/neutral_diamond.png" id="3_sw76m"]
+[ext_resource type="Texture2D" uid="uid://cc7u6udrvurjg" path="res://assets/ui/disruptive_hexagon.png" id="4_84kqq"]
+[ext_resource type="Shader" path="res://shaders/research_slot_icon_clip.gdshader" id="4_vj73i"]
+[ext_resource type="Texture2D" uid="uid://ii17pi28ya13" path="res://assets/ui/harmonic_diamond.png" id="5_tv0dv"]
+[ext_resource type="Texture2D" uid="uid://octem5bf3awu" path="res://assets/ui/harmonic_hexagon.png" id="6_poub1"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_nnuky"]
+blend_mode = 3
+
+[sub_resource type="Shader" id="Shader_fg07s"]
+code = "shader_type canvas_item;
+
+uniform vec4 color: source_color;
+uniform float multiplier = 0.2;
+uniform float softness = 3.0;
+
+void fragment() {
+	float value = distance(UV, vec2(0.5));
+	COLOR = vec4(color.rgb, smoothstep(multiplier, softness, value));
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lik01"]
+shader = SubResource("Shader_fg07s")
+shader_parameter/color = Color(0.333333, 1, 0.521569, 1)
+shader_parameter/multiplier = 0.25
+shader_parameter/softness = 2.5
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0yxai"]
+size = Vector2(90, 80)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_b73um"]
+shader = SubResource("Shader_fg07s")
+shader_parameter/color = Color(1, 0.25, 0.25, 1)
+shader_parameter/multiplier = 0.25
+shader_parameter/softness = 2.5
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_uhsfl"]
+shader = ExtResource("4_vj73i")
+shader_parameter/parent_texture = ExtResource("5_tv0dv")
+
+[node name="ResearchUI" type="CanvasLayer"]
+layer = 2
+script = ExtResource("1_2til6")
+
+[node name="Inner" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -590.0
+offset_top = -325.0
+offset_right = 590.0
+offset_bottom = 325.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="Panel" parent="Inner"]
+modulate = Color(0, 0.707712, 0.616406, 1)
+self_modulate = Color(0.652864, 0.652864, 0.652864, 1)
+z_index = -1
+material = SubResource("CanvasItemMaterial_nnuky")
+custom_minimum_size = Vector2(1280, 720)
+layout_mode = 2
+offset_left = -50.0
+offset_top = -35.0
+offset_right = 1230.0
+offset_bottom = 685.0
+
+[node name="Vignette" type="Panel" parent="Inner/Background"]
+material = SubResource("ShaderMaterial_lik01")
+custom_minimum_size = Vector2(1280, 720)
+layout_mode = 2
+
+[node name="HarmonicViewportContainer" type="SubViewportContainer" parent="Inner"]
+z_index = -1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SubViewport" type="SubViewport" parent="Inner/HarmonicViewportContainer"]
+disable_3d = true
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(1280, 720)
+render_target_update_mode = 4
+
+[node name="Sprite2D" type="Sprite2D" parent="Inner/HarmonicViewportContainer/SubViewport"]
+z_index = 2
+position = Vector2(640, 360)
+scale = Vector2(0.09, 0.09)
+texture = ExtResource("6_poub1")
+
+[node name="Area2D" type="Area2D" parent="Inner/HarmonicViewportContainer/SubViewport/Sprite2D"]
+scale = Vector2(11.1111, 11.1111)
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Inner/HarmonicViewportContainer/SubViewport/Sprite2D/Area2D"]
+shape = SubResource("RectangleShape2D_0yxai")
+
+[node name="DisruptiveViewportContainer" type="SubViewportContainer" parent="Inner"]
+visible = false
+z_index = -1
+layout_mode = 0
+offset_left = -50.0
+offset_top = -35.0
+offset_right = 1230.0
+offset_bottom = 685.0
+
+[node name="Background" type="Panel" parent="Inner/DisruptiveViewportContainer"]
+visible = false
+modulate = Color(0, 0.707712, 0.616406, 1)
+self_modulate = Color(0.652864, 0.652864, 0.652864, 1)
+z_index = -1
+material = SubResource("CanvasItemMaterial_nnuky")
+custom_minimum_size = Vector2(1280, 720)
+layout_mode = 2
+
+[node name="Vignette" type="Panel" parent="Inner/DisruptiveViewportContainer/Background"]
+material = SubResource("ShaderMaterial_b73um")
+layout_mode = 0
+offset_right = 1280.0
+offset_bottom = 720.0
+
+[node name="SubViewport" type="SubViewport" parent="Inner/DisruptiveViewportContainer"]
+disable_3d = true
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(1280, 720)
+render_target_update_mode = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Inner/DisruptiveViewportContainer/SubViewport"]
+z_index = 2
+position = Vector2(640, 360)
+scale = Vector2(0.09, 0.09)
+texture = ExtResource("4_84kqq")
+
+[node name="Area2D" type="Area2D" parent="Inner/DisruptiveViewportContainer/SubViewport/Sprite2D"]
+scale = Vector2(11.1111, 11.1111)
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Inner/DisruptiveViewportContainer/SubViewport/Sprite2D/Area2D"]
+shape = SubResource("RectangleShape2D_0yxai")
+
+[node name="Return" type="Button" parent="Inner"]
+layout_mode = 2
+offset_right = 24.0
+offset_bottom = 47.0
+theme_type_variation = &"FlatButton"
+theme_override_font_sizes/font_size = 28
+text = "<"
+flat = true
+
+[node name="Categories" type="Panel" parent="Inner"]
+self_modulate = Color(1, 1, 1, 0)
+z_index = 3
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -100.0
+offset_right = 100.0
+offset_bottom = 40.0
+grow_horizontal = 2
+
+[node name="Harmonic" type="Button" parent="Inner/Categories"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -15.5
+offset_right = 84.0
+offset_bottom = 15.5
+grow_vertical = 2
+theme_override_constants/outline_size = 0
+text = "Harmonic"
+flat = true
+
+[node name="Disruptive" type="Button" parent="Inner/Categories"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -88.0
+offset_top = -15.5
+offset_bottom = 15.5
+grow_horizontal = 0
+grow_vertical = 2
+text = "Disruptive"
+flat = true
+
+[node name="ResearchSlots" type="VBoxContainer" parent="Inner"]
+custom_minimum_size = Vector2(59, 59)
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -59.0
+offset_top = -29.5
+offset_bottom = 29.5
+grow_horizontal = 0
+grow_vertical = 2
+alignment = 1
+
+[node name="Slot" type="TextureButton" parent="Inner/ResearchSlots"]
+custom_minimum_size = Vector2(59, 59)
+layout_mode = 2
+texture_normal = ExtResource("3_sw76m")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="TextureRect" type="TextureRect" parent="Inner/ResearchSlots/Slot"]
+material = SubResource("ShaderMaterial_uhsfl")
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -27.0
+offset_top = -27.0
+offset_right = 27.0
+offset_bottom = 27.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1
+
+[connection signal="pressed" from="Inner/Return" to="." method="_on_return_pressed"]
+[connection signal="pressed" from="Inner/Categories/Harmonic" to="." method="_on_harmonic_pressed"]
+[connection signal="pressed" from="Inner/Categories/Disruptive" to="." method="_on_disruptive_pressed"]

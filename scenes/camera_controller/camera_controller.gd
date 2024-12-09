@@ -22,6 +22,9 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	if get_tree().paused:
+		return
+	
 	simple_pan(delta)
 	click_and_drag()
 	_zoom(delta)
@@ -39,17 +42,10 @@ func _zoom(delta):
 	
 func simple_pan(delta):
 	var moveAmount = Vector2.ZERO
-	if Input.is_action_pressed("camera_move_right"):
-		moveAmount.x += 1
-		
-	if Input.is_action_pressed("camera_move_left"):
-		moveAmount.x -= 1
-		
-	if Input.is_action_pressed("camera_move_up"):
-		moveAmount.y -= 1
-		
-	if Input.is_action_pressed("camera_move_down"):
-		moveAmount.y += 1
+	if Input.is_action_pressed("camera_move_right"): moveAmount.x += 1
+	if Input.is_action_pressed("camera_move_left"): moveAmount.x -= 1
+	if Input.is_action_pressed("camera_move_up"): moveAmount.y -= 1
+	if Input.is_action_pressed("camera_move_down"): moveAmount.y += 1
 		
 	moveAmount = moveAmount.normalized()
 	position += moveAmount * delta * 1000 * (1/zoom.x) * pan_speed

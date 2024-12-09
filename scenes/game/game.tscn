@@ -1,8 +1,10 @@
-[gd_scene load_steps=6 format=4 uid="uid://c04acpkxm3sd5"]
+[gd_scene load_steps=8 format=4 uid="uid://c04acpkxm3sd5"]
 
 [ext_resource type="Script" path="res://scenes/game/game.gd" id="1_tsrk7"]
 [ext_resource type="PackedScene" uid="uid://brq0lboerwcuj" path="res://scenes/camera_controller/camera_controller.tscn" id="3_55vxg"]
 [ext_resource type="Texture2D" uid="uid://b04y7fc238mte" path="res://assets/tilesets/hextiles.png" id="4_e0dgn"]
+[ext_resource type="PackedScene" uid="uid://boh5flscyvjew" path="res://scenes/game/hud.tscn" id="4_kpo2e"]
+[ext_resource type="PackedScene" uid="uid://cmjc0fpxbut8c" path="res://scenes/game/research/research_ui.tscn" id="5_cdfv1"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_tce34"]
 texture = ExtResource("4_e0dgn")
@@ -106,3 +108,11 @@ tile_map_data = PackedByteArray("AAAAAP//AwAGAAAAAAAAAAAAAwAGAAAAAAABAP7/AwAGAAA
 tile_set = SubResource("TileSet_k8tgw")
 
 [node name="Camera2D" parent="." instance=ExtResource("3_55vxg")]
+min_zoom = 0.3
+
+[node name="Hud" parent="." node_paths=PackedStringArray("research_ui") instance=ExtResource("4_kpo2e")]
+research_ui = NodePath("../ResearchUI")
+
+[node name="ResearchUI" parent="." instance=ExtResource("5_cdfv1")]
+layer = 5
+visible = false

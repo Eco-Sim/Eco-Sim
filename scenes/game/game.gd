@@ -35,7 +35,6 @@ func _ready() -> void:
 
 func _on_continue_pressed():
 	escape_menu.visible = false
-	## TODO: pause gameplay
 
 func _on_return_pressed():
 	SceneLoader.load_level('startmenu')
