@@ -53,7 +53,7 @@ text = "Energy"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="BuildMenu" type="TextureButton" parent="Inner"]
+[node name="Build" type="TextureButton" parent="Inner"]
 self_modulate = Color(0.0911214, 0.0911215, 0.0911214, 0.588235)
 layout_mode = 1
 anchors_preset = 3
@@ -69,7 +69,7 @@ texture_normal = ExtResource("1_cleew")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="Icon" type="TextureRect" parent="Inner/BuildMenu"]
+[node name="Icon" type="TextureRect" parent="Inner/Build"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -118,5 +118,60 @@ grow_vertical = 2
 texture = ExtResource("3_ssdb6")
 expand_mode = 5
 
-[connection signal="pressed" from="Inner/BuildMenu" to="." method="_on_build_menu_pressed"]
+[node name="BuildMenu" type="Panel" parent="Inner"]
+visible = false
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -310.0
+offset_top = -120.0
+offset_right = 310.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Filters" type="HBoxContainer" parent="Inner/BuildMenu"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = -0.5
+anchor_right = 0.5
+anchor_bottom = -0.5
+offset_left = -229.0
+offset_right = 229.0
+offset_bottom = 40.0
+alignment = 1
+
+[node name="Harmonic" type="Button" parent="Inner/BuildMenu/Filters"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "HARMONIC"
+
+[node name="All" type="Button" parent="Inner/BuildMenu/Filters"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "ALL"
+
+[node name="Disruptive" type="Button" parent="Inner/BuildMenu/Filters"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "DISRUPTIVE"
+
+[node name="Structures" type="HBoxContainer" parent="Inner/BuildMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -50.0
+offset_right = 300.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[connection signal="pressed" from="Inner/Build" to="." method="_on_build_menu_pressed"]
 [connection signal="pressed" from="Inner/Research" to="." method="_on_research_pressed"]

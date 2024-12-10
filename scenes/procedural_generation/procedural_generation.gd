@@ -124,7 +124,6 @@ func oddq_to_cube(hex: Vector2i) -> Vector3i:
 # Meant to be called by the parent node
 func generate_world():
 	print('WIDTH: ', width, ' HEIGHT: ', height)
-
 	var biome_tileset_index := randi_range(0, TILE_ATLASES.size()-1)
 
 	for x in range(-width, width):
