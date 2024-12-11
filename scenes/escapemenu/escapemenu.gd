@@ -13,6 +13,8 @@ signal is_quit_button_visible_changed(is_visible: bool)
 	get:
 		return quit.visible
 	set(value):
+		await ready
+		
 		quit.visible = is_quit_button_visible == true
 		is_quit_button_visible_changed.emit(value)
 
@@ -21,6 +23,8 @@ signal button1_text_changed(is_visible: bool)
 	get:
 		return button1.text
 	set(value):
+		await ready
+
 		button1.text = value
 		button1_text_changed.emit(value)
 
@@ -29,12 +33,16 @@ signal button2_text_changed(is_visible: bool)
 	get:
 		return button2.text
 	set(value):
+		await ready
+
 		button2.text = value
 		button2_text_changed.emit(value)
 	
 signal can_toggle_via_keybind_changed(can_toggle: bool)
 @export var can_toggle_via_keybind: bool = true:
 	set(value):
+		await ready
+
 		can_toggle_via_keybind = value
 		can_toggle_via_keybind_changed.emit(value)
 

@@ -1,7 +1,7 @@
 # Camera Controller Script
 # https://gitlab.com/realrobots/rimworldripoff/-/blob/1ee8ef79c7ac03e56628dbece33f855c2e090523/CameraController.gd
 
-extends Camera2D
+class_name CameraController extends Camera2D
 
 @export var zoom_speed : float = 10.0;
 @export var pan_speed: float = 1.0;

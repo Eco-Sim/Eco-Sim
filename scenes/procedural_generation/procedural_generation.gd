@@ -16,10 +16,10 @@ class_name ProceduralGeneration extends Node2D
 
 @onready var atlas := load("res://assets/tilesets/hextiles.png") as Texture2D
 
-const GRID_CORNER_MULTIPLIER = 3
+var GRID_CORNER_MULTIPLIER = 3
 
-const TILE_MAP_SOURCE_ID = 3
-const TILE_ATLASES := [
+var TILE_MAP_SOURCE_ID = 3
+var TILE_ATLASES := [
 	[ ## Normal grassy w beaches
 		{ # Water
 			100: Vector2i(6, 0)
@@ -139,12 +139,15 @@ func generate_world():
 			
 			var sprite := Sprite2D.new()
 			self.add_child(sprite)
+			
+			sprite.name = '{x} {y}'.format({
+				'x': x,
+				'y': y
+			})
 
 			var atlas_texture := AtlasTexture.new()
 			atlas_texture.region = Rect2i(Vector2i(32, 48) * atlas_offset, Vector2i(32, 48))
 			atlas_texture.atlas = atlas
-			
-			# sprite.z_index = x + y
 
 			sprite.texture = atlas_texture
-			sprite.position = GridUtil.get_world_position(x + width * .25, y + height * .25)
+			sprite.position = GridUtil.get_world_position(x, y)
