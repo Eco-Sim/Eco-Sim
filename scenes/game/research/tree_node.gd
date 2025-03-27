@@ -1,3 +1,5 @@
+## TODO: Implement for tech trees; Render method & hex-like Linked List (sixfold linked list)
+
 class_name TreeNode extends Node
 
 var Parent: Variant
